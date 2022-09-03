@@ -10,8 +10,7 @@
    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
    
    <script>
-   // We 'll fill this in next
-   var canvas = document.getElementByld("canvas"); 
+   var canvas = document.getElementById("canvas");
    var ctx = canvas.getContext("2d");
 
    var width = canvas.width;
@@ -27,6 +26,7 @@
      ctx.fillRect(0, 0, blockSize, height);
      ctx.fillRect(width - blockSize, 0, blockSize, height);
    };   
+   drawBorder(); 
    </script>
 </body>
 </html>
