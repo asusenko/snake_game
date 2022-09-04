@@ -27,6 +27,26 @@
      ctx.fillRect(width - blockSize, 0, blockSize, height);
    };   
    drawBorder(); 
+
+   var drawScore = function () {
+     ctx.font = "20px Courier";
+     ctx.fillStyle = "Black";
+     ctx.textAlign = "left";
+     ctx.textBaseline = "top";
+     ctx.fillText("Score: " + score, blockSize, blockSize)
+   };
+   score = 5;
+   drawScore();
+
+   var gameOver = function () {
+   //clearInterval(intervalid);
+   ctx.font = "60px Courier";
+   ctx.fillStyle = "Black";
+   ctx.textAlign = "center";
+   ctx.textBaseline = "middle";
+   ctx.fillText("Game Over", width / 2, height / 2);   
+   }; 
+   gameOver();
    </script>
 </body>
 </html>
