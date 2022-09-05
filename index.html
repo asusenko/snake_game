@@ -46,7 +46,19 @@
    ctx.textBaseline = "middle";
    ctx.fillText("Game Over", width / 2, height / 2);   
    }; 
+   
+var Block = function (col, row) {
+  this.col = col;
+  this.row = row;
+};
+Block.prototype.drawSquare = function (color) {
+  var x = this.col * blockSize;
+  var y = this.row * blockSize;
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, blockSize, blockSize);
+};
    gameOver();
+
    </script>
 </body>
 </html>
