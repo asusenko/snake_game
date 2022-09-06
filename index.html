@@ -47,18 +47,55 @@
    ctx.fillText("Game Over", width / 2, height / 2);   
    }; 
    
-var Block = function (col, row) {
-  this.col = col;
-  this.row = row;
-};
+   
+   var circle = function (x, y, radius, fillCircle) {
+     ctx.beginPath();
+     ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+     if (fillCircle) {
+       ctx.fill();
+     } else {
+       ctx.stroce(); 
+     }   
+    };
+
+
+    var Block = function (col, row) {
+    this.col = col;
+   this.row = row;
+  };
+
+
 Block.prototype.drawSquare = function (color) {
   var x = this.col * blockSize;
   var y = this.row * blockSize;
   ctx.fillStyle = color;
   ctx.fillRect(x, y, blockSize, blockSize);
 };
+
+
+     Block.prototype.drawCircle = function (color) {
+       var centerX = this.col * blockSize + blockSize / 2;
+       var centerY = this.row * blockSize + blockSize / 2;
+       ctx.fillStyle = color;
+       circle(centerX, centerY, blockSize / 2, true);
+     };
+var directions = {
+  100: 'left',
+  104: "up",
+  102: "right",
+  98: "down"
+};
+
+$("body").keydown(function (event) {
+  var newDirection = directions[event.keyCode];
+  if (newDirection !== undefined) {
+    snake.setDirection(newDirection);
+  }  
+});
    gameOver();
 
+  var c = new Block(10,10);
+  c.drawCircle("limeGreen");
    </script>
 </body>
 </html>
