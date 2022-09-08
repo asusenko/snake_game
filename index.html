@@ -80,10 +80,10 @@ Block.prototype.drawSquare = function (color) {
        circle(centerX, centerY, blockSize / 2, true);
      };
 var directions = {
-  100: 'left',
-  104: "up",
-  102: "right",
-  98: "down"
+  37: 'left',
+  38: "up",
+  39: "right", 
+  40: "down"
 };
 
 $("body").keydown(function (event) {
@@ -92,10 +92,49 @@ $("body").keydown(function (event) {
     snake.setDirection(newDirection);
   }  
 });
-   gameOver();
+Block.prototype.equal = function (otherBlock) {
+  return this.col === otherBlock.col && this.row === otherBlock.row;
+};
+var Snake = function () {
+  this.segment = [
+    new Block(7, 5),
+    new Block(6, 5),
+    new Block(5, 5)
+  ];
 
-  var c = new Block(10,10);
-  c.drawCircle("limeGreen");
+  this.direction = "right";
+  this.nextDirection = "right";
+};
+Snake.prototype.draw = function () {
+  for (var i = 0; i < this.segment.length; i++) {
+    this.segment[i].drawSquare("blue");
+  }
+};
+
+Snake.prototype.move = function () {
+  var head = this.segment[0];
+  var newHead;
+
+  this.direction = this.nextDirection
+
+  if (this.direction === "right") {
+    newHead = new Block(head.col + 1, head.row);
+  } else if (this.direction === "down")  {
+    newHead = new Block(head.col + 1, head.row);
+  } else if (this.direction === "left") {
+    newHead = new Block(head.col - 1, head.row);
+  } else if (this.direction = "up") {
+    newHead = new Block(head.col, head.row - 1);
+  }
+    if (this.checkCollision(newHead)) {
+      gameOver();
+      return;
+    }
+  };  
+var snake  = new Snake();
+snake.draw();
+  var apple = new Block(10,10);
+  apple.drawCircle("limeGreen");
    </script>
 </body>
 </html>
