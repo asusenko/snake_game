@@ -79,19 +79,9 @@ Block.prototype.drawSquare = function (color) {
        ctx.fillStyle = color;
        circle(centerX, centerY, blockSize / 2, true);
      };
-var directions = {
-  37: 'left',
-  38: "up",
-  39: "right", 
-  40: "down"
-};
 
-$("body").keydown(function (event) {
-  var newDirection = directions[event.keyCode];
-  if (newDirection !== undefined) {
-    snake.setDirection(newDirection);
-  }  
-});
+
+
 Block.prototype.equal = function (otherBlock) {
   return this.col === otherBlock.col && this.row === otherBlock.row;
 };
@@ -149,15 +139,78 @@ Snake.prototype.move = function () {
 
     var wallCollision = leftCollision || topCollision || rightCollision || bottomCollision;
     var selfCollision = false;
-    
+
+    for (var i = 0; i < this.segments.length; i++){
+      if (head.equal(this.segments[i])){
+        selfCollision = true;
+      }
+    }
+    return wallCollision || selfCollision;
   };
 
 
+Snake.prototype.setDirection = function (newDirection) {
+  if (this.direction === "up" && newDirection === "down"){
+    return;
+  } else if (this.direction === "right" && newDirection === "left") {
+    return;
+  } else if (this.direction === "down" && newDirection ==="up") {
+    return;
+  } else if (this.direction === "left" && newDirection === "right"){
+    return;
+  }
+
+  this.nextDirection = newDirection;
+};
+
+// Apple constructur
+
+var Apple = function () {
+  this.position = new Block (10,10);
+};
+
+// Draw circle
+Apple.prototype.draw = function () {
+this.position.drawCircle("limeGreen");
+};
+
+// Move apple to new random location
+Apple.prototype.move = function () {
+  var randomCol = Math.floor (Math.random() * (widthInBlocks - 2)) + 1;
+  var randomRaw = Math.floor (Math.random() * (heightInBlocks - 2)) + 1;
+  this.position = new Block (randomCol, randomRaw);
+};
+
+// Create objects 
+var snake = new Snake();
+var apple = new Apple();
+
+// Send function animation
+var intervalid = setInterval(function () {
+ // ctx.clearRect (0,0,width, height);
+ // drawScore();
+ // snake.move();
+  //snake.draw();
+  apple.move();
+  apple.draw();
+  drawBorder();
+},100);
 
 
 
+var directions = {
+  37: 'left',
+  38: "up",
+  39: "right", 
+  40: "down"
+};
 
-
+$("body").keydown(function (event) {
+  var newDirection = directions[event.keyCode];
+  if (newDirection !== undefined) {
+    snake.setDirection(newDirection);
+  }  
+});
 
 
 
