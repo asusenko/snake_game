@@ -86,7 +86,7 @@ Block.prototype.equal = function (otherBlock) {
   return this.col === otherBlock.col && this.row === otherBlock.row;
 };
 var Snake = function () {
-  this.segment = [
+  this.segments = [
     new Block(7, 5),
     new Block(6, 5),
     new Block(5, 5)
@@ -96,13 +96,13 @@ var Snake = function () {
   this.nextDirection = "right";
 };
 Snake.prototype.draw = function () {
-  for (var i = 0; i < this.segment.length; i++) {
-    this.segment[i].drawSquare("blue");
+  for (var i = 0; i < this.segments.length; i++) {
+    this.segments[i].drawSquare("blue");
   }
 };
 
 Snake.prototype.move = function () {
-  var head = this.segment[0];
+  var head = this.segments[0];
   var newHead;
 
   this.direction = this.nextDirection
@@ -187,14 +187,15 @@ var apple = new Apple();
 
 // Send function animation
 var intervalid = setInterval(function () {
- // ctx.clearRect (0,0,width, height);
- // drawScore();
- // snake.move();
-  //snake.draw();
-  apple.move();
+  ctx.clearRect (0,0,width, height);
+  
+  snake.move();
+  snake.draw();
+ // apple.move();
   apple.draw();
   drawBorder();
-},100);
+  drawScore();
+},300);
 
 
 
@@ -212,23 +213,6 @@ $("body").keydown(function (event) {
   }  
 });
 
-
-
-
-// var snake  = new Snake();
-// snake.draw();
-//   var apple = new Block(10,10);
-//   apple.drawCircle("limeGreen");
-
-
-
-
-
-
-
-
-
-
-   </script>
+</script>
 </body>
 </html>
